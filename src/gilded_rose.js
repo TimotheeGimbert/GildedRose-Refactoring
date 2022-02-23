@@ -46,7 +46,7 @@ class BackstagePasses extends Item {
       return;
     }
     if (this.quality >= 50) return;
-    if (this.quality > 10) this.quality += 1;
+    if (this.sellIn > 10) this.quality += 1;
     else if (this.sellIn > 5) this.quality += 2;
     else this.quality += 3;
   }
