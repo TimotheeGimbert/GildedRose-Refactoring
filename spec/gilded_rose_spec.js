@@ -1,10 +1,16 @@
 var {Shop, Item, Sulfuras, AgedBrie, BackstagePasses} = require('../src/gilded_rose.js');
 describe("Gilded Rose", function() {
 
-  it("Standard items should decrease quality by one", function() {
+  it("Standard items should decrease quality by one when sellIn >= 0", function() {
     const gildedRose = new Shop([ new Item("Standard Item 1", 3, 11) ]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).toEqual(10);
+  });
+
+  it("Standard items should decrease quality by two when sellIn < 0", function() {
+    const gildedRose = new Shop([ new Item("Standard Item 1", -2, 11) ]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toEqual(9);
   });
 
   it("Standard items should decrease sellIn by one", function() {
@@ -47,6 +53,18 @@ describe("Gilded Rose", function() {
     const gildedRose = new Shop([ new BackstagePasses("Backstage Pass 3", 7, 30) ]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).toEqual(32);
+  });
+
+  it("Conjured items should decrease quality é times more than standard items", function() {
+    const gildedRose = new Shop([ new Item("Conjured Item 1", 5, 11) ]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toEqual(9);
+  });
+
+  it("Conjured items should decrease quality é times more than standard items when sellIn < 0", function() {
+    const gildedRose = new Shop([ new Item("Conjured Item 1", -2, 11) ]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toEqual(7);
   });
 
 });

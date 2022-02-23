@@ -8,7 +8,12 @@ class Item {
   evolve = () => {
     this.sellIn -= 1;
     if (this.quality <= 0 || this.quality >= 50) return;
-    this.sellIn >= 0 ? this.quality -= 1 : this.quality -= 2;
+    if (this.name.startsWith('Conjured')) {
+      this.sellIn >= 0 ? this.quality -= 2 : this.quality -= 4;
+    } 
+    else {
+      this.sellIn >= 0 ? this.quality -= 1 : this.quality -= 2;
+    }
   }
 }
 
@@ -62,6 +67,7 @@ class Shop {
     return this.items;
   }
 }
+
 module.exports = {
   Item,
   Shop,
