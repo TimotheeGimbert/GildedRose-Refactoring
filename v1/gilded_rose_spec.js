@@ -1,9 +1,4 @@
-const { Item } = require("../src/items/Item");
-const { Legendary } = require("../src/items/Legendary");
-const { AgedBrie } = require("../src/items/AgedBrie");
-const { BackstagePasses } = require("../src/items/BackstagePasses");
-const { Shop } = require("../src/gilded_rose");
-
+var {Shop, Item, Sulfuras, AgedBrie, BackstagePasses} = require('../src/gilded_rose.js');
 describe("Gilded Rose", function() {
 
   it("Standard items should decrease quality by one when sellIn >= 0", function() {
@@ -24,8 +19,8 @@ describe("Gilded Rose", function() {
     expect(items[0].sellIn).toEqual(2);
   });
 
-  it("Legendary items should not change sellIn", function() {
-    const gildedRose = new Shop([ new Legendary("Sulfura 1", 0, 80) ]);
+  it("Sulfuras should not change sellIn", function() {
+    const gildedRose = new Shop([ new Sulfuras("Sulfura 1", 0, 80) ]);
     const items = gildedRose.updateQuality();
     expect(items[0].sellIn).toEqual(0);
   });
@@ -58,12 +53,6 @@ describe("Gilded Rose", function() {
     const gildedRose = new Shop([ new BackstagePasses("Backstage Pass 3", 7, 30) ]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).toEqual(32);
-  });
-
-  it("Backstage Passes see their quality falling to zero after concert", function() {
-    const gildedRose = new Shop([ new BackstagePasses("Backstage Pass 3", 0, 30) ]);
-    const items = gildedRose.updateQuality();
-    expect(items[0].quality).toEqual(0);
   });
 
   it("Conjured items should decrease quality é times more than standard items", function() {
